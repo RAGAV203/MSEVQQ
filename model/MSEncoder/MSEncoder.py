@@ -31,8 +31,8 @@ class BranchBlock(nn.Module):
         if out_channels >= 32:
             out_channels = ((out_channels + 31) // 32) * 32
             
-        self.block1 = ConvBlock(in_channels, out_channels, kernel_size, stride)
-        self.block2 = ConvBlock(out_channels, out_channels, kernel_size, 1)
+        #self.block1 = ConvBlock(in_channels, out_channels, kernel_size, stride)
+        #self.block2 = ConvBlock(out_channels, out_channels, kernel_size, 1)
         self.block1 = ConvBlock(in_channels, out_channels, kernel_size, stride)
         self.block2 = ConvBlock(out_channels, out_channels, kernel_size, stride)
         

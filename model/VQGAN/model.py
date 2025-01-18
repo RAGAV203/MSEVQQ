@@ -217,11 +217,11 @@ class Model(nn.Module):
             ])
 
         # downsampling
-        self.conv_in = MultiStageEncoder(
-            in_channels=in_channels,
-            out_channels=self.ch,
-            num_branches=3
-        )
+        self.conv_in = torch.nn.Conv2d(in_channels,
+                                       in_channels,
+                                       kernel_size=3,
+                                       stride=1,
+                                       padding=1)
 
         curr_res = resolution
         in_ch_mult = (1,)+tuple(ch_mult)
@@ -345,18 +345,18 @@ class Encoder(nn.Module):
                  attn_resolutions, dropout=0.0, resamp_with_conv=True, in_channels,
                  resolution, z_channels, double_z=True, **ignore_kwargs):
         super().__init__()
-        self.ch = ((ch - 1) // 4 + 1) * 4 
+        self.ch = ch
         self.temb_ch = 0
         self.num_resolutions = len(ch_mult)
         self.num_res_blocks = num_res_blocks
         self.resolution = resolution
         self.in_channels = in_channels
 
-        # downsampling
+        # Replace initial Conv2d with MultiStageEncoder
         self.conv_in = MultiStageEncoder(
             in_channels=in_channels,
             out_channels=self.ch,
-            num_branches=3
+            stride=1
         )
 
         curr_res = resolution
@@ -398,9 +398,9 @@ class Encoder(nn.Module):
         # end
         self.norm_out = Normalize(block_in)
         self.conv_out = MultiStageEncoder(
-            in_channels=in_channels,
-            out_channels=self.ch,
-            num_branches=3
+            in_channels=block_in,
+            out_channels=2*z_channels if double_z else z_channels,
+            stride=1
         )
 
 
@@ -774,4 +774,3 @@ class UpsampleDecoder(nn.Module):
         h = nonlinearity(h)
         h = self.conv_out(h)
         return h
-

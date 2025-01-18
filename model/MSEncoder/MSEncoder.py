@@ -2,18 +2,6 @@ import torch
 import torch.nn as nn
 import math
 
-def Normalize(in_channels):
-    """
-    Adjusted normalization function to handle varying channel counts
-    """
-    if in_channels >= 32:
-        return nn.GroupNorm(num_groups=32, num_channels=in_channels, eps=1e-6, affine=True)
-    else:
-        # For smaller channel counts, use a smaller number of groups
-        num_groups = max(1, in_channels // 4)  # Ensure at least 1 group
-        return nn.GroupNorm(num_groups=num_groups, num_channels=in_channels, eps=1e-6, affine=True)
-
-#nonlinearity(x): x * torch.sigmoid(x)
 class Swish(nn.Module):
     def forward(self, x):
         return x * torch.sigmoid(x)
@@ -21,22 +9,19 @@ class Swish(nn.Module):
 class ConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding='same'):
         super(ConvBlock, self).__init__()
-        
         if padding == 'same':
             padding = kernel_size // 2
-            
-        self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding)
-        self.norm1 = Normalize(out_channels)
-        self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size, stride, padding)
-        self.norm2 = Normalize(out_channels)
-   
+        self.conv = nn.Sequential(
+            nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding),
+            Normalize(out_channels),  # Using GroupNorm instead of BatchNorm to match original
+            Swish(),
+            nn.Conv2d(out_channels, out_channels, kernel_size, stride, padding),
+            Normalize(out_channels),
+            Swish()
+        )
+        
     def forward(self, x):
-        x = self.conv1(x)
-        x = self.norm1(x)
-        x = x*torch.sigmoid(x)
-        x = self.conv2(x)
-        x = self.norm2(x)
-        return x*torch.sigmoid(x)
+        return self.conv(x)
 
 class BranchBlock(nn.Module):
     def __init__(self, kernel_size, in_channels, out_channels, stride=1):
@@ -48,6 +33,8 @@ class BranchBlock(nn.Module):
             
         self.block1 = ConvBlock(in_channels, out_channels, kernel_size, stride)
         self.block2 = ConvBlock(out_channels, out_channels, kernel_size, 1)
+        self.block1 = ConvBlock(in_channels, out_channels, kernel_size, stride)
+        self.block2 = ConvBlock(out_channels, out_channels, kernel_size, stride)
         
     def forward(self, x):
         out1 = self.block1(x)
@@ -76,18 +63,45 @@ class MultiStageEncoder(nn.Module):
         
         # Add projection if needed to match desired output channels
         self.proj = None
-
         if total_branch_channels != out_channels:
             self.proj = nn.Sequential(
                 nn.Conv2d(total_branch_channels, out_channels, 1, 1, 0),
                 Normalize(out_channels),
                 Swish()
             )
-            
-    def forward(self, x):
-        branch_outputs = [branch(x) for branch in self.branches]
-        out = torch.cat(branch_outputs, dim=1)
         
+        # Add residual connection if input and output channels differ
+        self.use_residual = (in_channels == out_channels and stride == 1)
+        if not self.use_residual and in_channels != out_channels:
+            self.channel_match = nn.Conv2d(in_channels, out_channels, 1, stride=stride)    
+    
+    def forward(self, x):
+        # Process through multi-scale branches
+        branch_outputs = [branch(x) for branch in self.branches]
+        combined = torch.cat(branch_outputs, dim=1)
+        
+        # Project to final number of channels
         if self.proj is not None:
-            out = self.proj(out)
-        return out
+            output = self.proj(combined)
+        else:
+            output = combined
+        
+        # Add residual if possible
+        if self.use_residual:
+            output = output + x
+        elif hasattr(self, 'channel_match'):
+            output = output + self.channel_match(x)
+            
+        return output
+
+
+def Normalize(in_channels):
+    """
+    Adjusted normalization function to handle varying channel counts
+    """
+    if in_channels >= 32:
+        return nn.GroupNorm(num_groups=32, num_channels=in_channels, eps=1e-6, affine=True)
+    else:
+        # For smaller channel counts, use a smaller number of groups
+        num_groups = max(1, in_channels // 4)  # Ensure at least 1 group
+        return nn.GroupNorm(num_groups=num_groups, num_channels=in_channels, eps=1e-6, affine=True)

@@ -1,4 +1,4 @@
-# LBBDM Based Diffusion with Multi-Branch Encoder - VQGAN for Image Translation
+# LBBDM Based Diffusion with Multi-Branch Encoder - VQGAN for Image Translation [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1KXO6yasHnyR_QJUmY4nnaUYxS3fZYyuE?usp=sharing)
 ***
 ## Latent Brownian Bridge Diffusion Model (LBBDM) Architecture
 ![img](resources/BBDM_architecture.png)

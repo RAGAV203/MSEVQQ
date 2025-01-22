@@ -1,6 +1,8 @@
+#LBBDM based diffusion with Modified VQGAN with Multi-Branch Encoder for Image Translation
 ***
 
 ![img](resources/BBDM_architecture.png)
+
 
 ## Requirements
 ```commandline

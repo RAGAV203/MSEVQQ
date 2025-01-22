@@ -3,6 +3,9 @@
 ## Latent Brownian Bridge Diffusion Model (LBBDM) Architecture
 ![img](resources/BBDM_architecture.png)
 
+## Vector Quantized Generative Adversarial Network (VQGAN) Architecture
+![img](resources/VQGAN-arch.jpg)
+
 ## Clone the repo
 ```commandline
 git clone https://github.com/RAGAV203/MSEVQQ.git

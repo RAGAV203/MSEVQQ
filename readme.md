@@ -1,9 +1,4 @@
-# Brownian Bridge Diffusion Models
 ***
-#### [BBDM: Image-to-image Translation with Brownian Bridge Diffusion Models](https://arxiv.org/abs/2205.07680)
-https://arxiv.org/abs/2205.07680
-
-**Bo Li, Kai-Tao Xue, Bin Liu, Yu-Kun Lai**
 
 ![img](resources/BBDM_architecture.png)
 
@@ -88,41 +83,4 @@ Note that optimizer checkpoint is not needed in test and specifying checkpoint p
 For distributed training, just modify the configuration of **--gpu_ids** with your specified gpus. 
 ```commandline
 python3 main.py --config configs/Template_LBBDM_f4.yaml --sample_to_eval --gpu_ids 0,1,2,3 --resume_model path/to/model_ckpt
-```
-
-### Run
-```commandline
-sh shell/your_shell.sh
-```
-
-## Pretrained Models
-For simplicity, we re-trained all of the models based on the same VQGAN model from LDM.
-
-The pre-trained VQGAN models provided by LDM can be directly used for all tasks.  
-https://github.com/CompVis/latent-diffusion#bibtex
-
-The VQGAN checkpoint VQ-4,8,16 we used are listed as follows and they all can be found in the above LDM mainpage:
-
-VQGAN-4: https://ommer-lab.com/files/latent-diffusion/vq-f4.zip  
-VQGAN-8: https://ommer-lab.com/files/latent-diffusion/vq-f8.zip  
-VQGAN-16: https://heibox.uni-heidelberg.de/f/0e42b04e2e904890a9b6/?dl=1
-
-All of our models can be found here.
-https://pan.baidu.com/s/1xmuAHrBt9rhj7vMu5HIhvA?pwd=hubb
-
-## Acknowledgement
-Our code is implemented based on Latent Diffusion Model and VQGAN
-
-[Latent Diffusion Models](https://github.com/CompVis/latent-diffusion#bibtex)  
-[VQGAN](https://github.com/CompVis/taming-transformers)
-
-## Citation
-```
-@inproceedings{li2023bbdm,
-  title={BBDM: Image-to-image translation with Brownian bridge diffusion models},
-  author={Li, Bo and Xue, Kaitao and Liu, Bin and Lai, Yu-Kun},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  pages={1952--1961},
-  year={2023}
-}
 ```

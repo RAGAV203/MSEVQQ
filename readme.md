@@ -1,9 +1,12 @@
-#LBBDM based diffusion with Modified VQGAN with Multi-Branch Encoder for Image Translation
+# LBBDM Based Diffusion with Multi-Branch Encoder - VQGAN for Image Translation
 ***
-
+## Latent Brownian Bridge Diffusion Model (LBBDM) Architecture
 ![img](resources/BBDM_architecture.png)
 
-
+## Clone the repo
+```commandline
+git clone https://github.com/RAGAV203/MSEVQQ.git
+```
 ## Requirements
 ```commandline
 cond env create -f environment.yml

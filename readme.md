@@ -35,32 +35,6 @@ dataset_config:
   dataset_path: 'your_dataset_path'
 ```
 
-### Colorization and Inpainting
-For colorization and inpainting tasks, the references may be generated from ground truth. The path should be formatted as:
-```yaml
-your_dataset_path/train  # training ground truth
-your_dataset_path/val  # validating ground truth
-your_dataset_path/test  # testing ground truth
-```
-
-#### Colorization
-For generalization, the gray image and ground truth are all in RGB format in colorization task. You can use our dataset type or implement your own.
-```yaml
-dataset_name: 'your_dataset_name'
-dataset_type: 'custom_colorization or implement_your_dataset_type'
-dataset_config:
-  dataset_path: 'your_dataset_path'
-```
-
-#### Inpainting
-We randomly mask 25%-50% of the ground truth. You can use our dataset type or implement your own.
-```yaml
-dataset_name: 'your_dataset_name'
-dataset_type: 'custom_inpainting or implement_your_dataset_type'
-dataset_config:
-  dataset_path: 'your_dataset_path'
-```
-
 ## Train and Test
 ### Specify your configuration file
 Modify the configuration file based on our templates in <font color=violet><b>configs/Template-*.yaml</b></font>  

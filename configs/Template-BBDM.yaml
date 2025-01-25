@@ -1,7 +1,7 @@
 # Brownian Bridge Diffusion Model Template(Pixel Space)
 runner: "BBDMRunner"
 training:
-  n_epochs: 200
+  n_epochs: 25
   n_steps: 400000
   save_interval: 20
   sample_interval: 2
@@ -13,10 +13,10 @@ testing:
   sample_num: 5
 
 data:
-  dataset_name: 'dataset_name'
+  dataset_name: 'Brats'
   dataset_type: 'custom_aligned'
   dataset_config:
-    dataset_path: 'dataset_path'
+    dataset_path: 'Brats'
     image_size: 256
     channels: 3
     to_normal: True

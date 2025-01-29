@@ -47,9 +47,9 @@ model:
     start_ema_step: 30000
 
   CondStageParams:
-    n_stages: 4
+    n_stages: 3
     in_channels: 3
-    out_channels: 8
+    out_channels: 4
 
   VQGAN:
     params:

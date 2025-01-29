@@ -106,7 +106,7 @@ model:
 
       UNetParams:
         image_size: 16
-        in_channels: 8
+        in_channels: 3
         model_channels: 128
         out_channels: 8
         num_res_blocks: 2

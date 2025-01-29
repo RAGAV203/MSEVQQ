@@ -54,11 +54,11 @@ model:
   VQGAN:
     params:
       ckpt_path: '/kaggle/input/vqgan-weights/last.ckpt'
-      embed_dim: 8
-      n_embed: 16384
+      embed_dim: 128
+      n_embed: 1024
       ddconfig:
         double_z: false
-        z_channels: 8
+        z_channels: 256
         resolution: 256
         in_channels: 3
         out_ch: 3

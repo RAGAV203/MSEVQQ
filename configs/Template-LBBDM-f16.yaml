@@ -61,7 +61,7 @@ model:
         z_channels: 256
         resolution: 256
         in_channels: 3
-        out_ch: 3
+        out_ch: 8
         ch: 128
         ch_mult: !!python/tuple
           - 1
@@ -106,7 +106,7 @@ model:
 
       UNetParams:
         image_size: 16
-        in_channels: 128
+        in_channels: 8
         model_channels: 128
         out_channels: 8
         num_res_blocks: 2

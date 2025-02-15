@@ -126,7 +126,7 @@ class BBDMRunner(DiffusionBaseRunner):
 
         self.logger(f"start calculating latent mean")
         batch_count = 0
-        for train_batch in tqdm(train_loader, total=len(train_loader), smoothing=0.00):
+        for train_batch in tqdm(train_loader, total=len(train_loader), smoothing=0.001):
             # if batch_count >= max_batch_num:
             #     break
             batch_count += 1
@@ -227,7 +227,7 @@ class BBDMRunner(DiffusionBaseRunner):
         gt_path = make_dir(os.path.join(sample_path, 'ground_truth'))
         result_path = make_dir(os.path.join(sample_path, str(self.config.model.BB.params.sample_step)))
 
-        pbar = tqdm(test_loader, total=len(test_loader), smoothing=0.01)
+        pbar = tqdm(test_loader, total=len(test_loader), smoothing=0.001)
         batch_size = self.config.data.test.batch_size
         to_normal = self.config.data.dataset_config.to_normal
         sample_num = self.config.testing.sample_num

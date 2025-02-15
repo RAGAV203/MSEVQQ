@@ -216,7 +216,7 @@ class BaseRunner(ABC):
         self.apply_ema()
         self.net.eval()
 
-        pbar = tqdm(val_loader, total=len(val_loader), smoothing=0.001, disable=not self.is_main_process)
+        pbar = tqdm(val_loader, total=len(val_loader), smoothing=0.01, disable=not self.is_main_process)
         step = 0
         loss_sum = 0.
         dloss_sum = 0.
@@ -392,7 +392,7 @@ class BaseRunner(ABC):
                     train_sampler.set_epoch(epoch)
                     val_sampler.set_epoch(epoch)
 
-                pbar = tqdm(train_loader, total=len(train_loader), smoothing=0.001, disable=not self.is_main_process)
+                pbar = tqdm(train_loader, total=len(train_loader), smoothing=0.01, disable=not self.is_main_process)
                 self.global_epoch = epoch
                 start_time = time.time()
                 for train_batch in pbar:

@@ -1,7 +1,7 @@
 # Latent Brownian Bridge Diffusion Model Template(Latent Space)
 runner: "BBDMRunner"
 training:
-  n_epochs: 90
+  n_epochs: 40
   n_steps: 200000
   save_interval: 2
   sample_interval: 2
@@ -42,7 +42,7 @@ model:
 
   EMA:
     use_ema: True
-    ema_decay: 0.995
+    ema_decay: 0.997
     update_ema_interval: 8 # step
     start_ema_step: 30000
 
@@ -82,7 +82,7 @@ model:
       weight_decay: 0.000
       optimizer: 'Adam'
       lr: 1.e-4
-      beta1: 0.9
+      beta1: 0.92
 
     lr_scheduler:
       factor: 0.5
@@ -126,4 +126,4 @@ model:
         resblock_updown: True
         use_spatial_transformer: False
         context_dim:
-        condition_key: "nocond" # options {"SpatialRescaler", "first_stage", "nocond"}
+        condition_key: "SpatialRescaler" # options {"SpatialRescaler", "first_stage", "nocond"}

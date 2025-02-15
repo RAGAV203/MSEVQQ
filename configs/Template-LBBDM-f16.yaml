@@ -34,9 +34,9 @@ data:
 model:
   model_name: "LBBDM-f16" # part of result path
   model_type: "LBBDM" # specify a module
-  latent_before_quant_conv: False
-  normalize_latent: False
-  only_load_latent_mean_std: False
+  latent_before_quant_conv: True
+  normalize_latent: True
+  only_load_latent_mean_std: True
   model_load_path:  '/kaggle/working/MSEVQQ/results/Brats/LBBDM-f16/checkpoint/last_model.pth'
   optim_sche_load_path:  '/kaggle/working/MSEVQQ/results/Brats/LBBDM-f16/checkpoint/last_optim_sche.pth'
 
@@ -126,4 +126,4 @@ model:
         resblock_updown: True
         use_spatial_transformer: False
         context_dim:
-        condition_key: "SpatialRescaler" # options {"SpatialRescaler", "first_stage", "nocond"}
+        condition_key: "nocond" # options {"SpatialRescaler", "first_stage", "nocond"}

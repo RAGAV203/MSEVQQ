@@ -37,8 +37,8 @@ model:
   latent_before_quant_conv: False
   normalize_latent: False
   only_load_latent_mean_std: False
-  # model_load_path:  # model checkpoint path
-  # optim_sche_load_path:  # optimizer scheduler checkpoint path
+  model_load_path:  '/kaggle/input/lbbdm-weight2/last_model.pth'
+  optim_sche_load_path:  '/kaggle/input/lbbdm-weight2/last_optim_sche.pth'
 
   EMA:
     use_ema: True

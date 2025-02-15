@@ -1,7 +1,7 @@
 # Latent Brownian Bridge Diffusion Model Template(Latent Space)
 runner: "BBDMRunner"
 training:
-  n_epochs: 40
+  n_epochs: 110
   n_steps: 200000
   save_interval: 2
   sample_interval: 2
@@ -35,14 +35,14 @@ model:
   model_name: "LBBDM-f16" # part of result path
   model_type: "LBBDM" # specify a module
   latent_before_quant_conv: False
-  normalize_latent: True
-  only_load_latent_mean_std: True
-  model_load_path:  '/kaggle/working/MSEVQQ/results/Brats/LBBDM-f16/checkpoint/last_model.pth'
-  optim_sche_load_path:  '/kaggle/working/MSEVQQ/results/Brats/LBBDM-f16/checkpoint/last_optim_sche.pth'
+  normalize_latent: False
+  only_load_latent_mean_std: False
+  model_load_path:
+  optim_sche_load_path:
 
   EMA:
     use_ema: True
-    ema_decay: 0.997
+    ema_decay: 0.996
     update_ema_interval: 8 # step
     start_ema_step: 30000
 

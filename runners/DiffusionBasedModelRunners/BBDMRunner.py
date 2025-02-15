@@ -126,7 +126,7 @@ class BBDMRunner(DiffusionBaseRunner):
 
         self.logger(f"start calculating latent mean")
         batch_count = 0
-        for train_batch in tqdm(train_loader, total=len(train_loader), smoothing=0.01):
+        for train_batch in tqdm(train_loader, total=len(train_loader), smoothing=0.00):
             # if batch_count >= max_batch_num:
             #     break
             batch_count += 1

@@ -34,7 +34,7 @@ data:
 model:
   model_name: "LBBDM-f16" # part of result path
   model_type: "LBBDM" # specify a module
-  latent_before_quant_conv: True
+  latent_before_quant_conv: False
   normalize_latent: True
   only_load_latent_mean_std: True
   model_load_path:  '/kaggle/working/MSEVQQ/results/Brats/LBBDM-f16/checkpoint/last_model.pth'

@@ -82,11 +82,11 @@ model:
       weight_decay: 0.000
       optimizer: 'Adam'
       lr: 1.e-4
-      beta1: 0.92
+      beta1: 0.9
 
     lr_scheduler:
-      factor: 0.5
-      patience: 3000
+      factor: 0.7
+      patience: 1500
       threshold: 0.0001
       cooldown: 3000
       min_lr: 5.e-7
@@ -98,10 +98,10 @@ model:
 
       skip_sample: True
       sample_type: 'linear' # options {"linear", "sin"}
-      sample_step: 200
+      sample_step: 100
 
       num_timesteps: 1000 # timesteps
-      eta: 1.0 # DDIM reverse process eta
+      eta: 0.6 # DDIM reverse process eta
       max_var: 1.0 # maximum variance
 
       UNetParams:
